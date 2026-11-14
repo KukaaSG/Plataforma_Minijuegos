@@ -10,8 +10,8 @@ class FrontController
 {
   public static function main(): void
   {
-    $controller_name = $_GET['controller'] ?? CONTROLLER_DEFAULT;
-    $action_name = $_GET['action'] ?? ACTION_DEFAULT;
+    $controller_name = $_GET['controller'] ?? 'Home';
+    $action_name = $_GET['action'] ?? 'index';
 
     $nombre_controlador = 'Controller\\' . ucfirst($controller_name) . 'Controller';
 
