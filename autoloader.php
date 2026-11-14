@@ -1,4 +1,5 @@
 <?php
+<<<<<<< HEAD
 /**
  * Registra una función de autocarga.
  * Esta función se llamará automáticamente cada vez que se intente
