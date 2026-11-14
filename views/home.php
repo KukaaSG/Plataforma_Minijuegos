@@ -12,6 +12,7 @@
   <button>Subir Juego</button>
   <button>Ver Tus Juegos</button>
   <button>Cerrar Sessión</button>
+  <button>Iniciar Sesión</button>
 </body>
 
 </html>
