@@ -10,11 +10,31 @@ class FrontController
 {
   public static function main(): void
   {
-    $controller_name = $_GET['controller'] ?? 'Home';
-    $action_name = $_GET['action'] ?? 'index';
+    // Obtener acción de la url, si no hay nada llama por defecto a HomeController
+    $action_name = $_GET['action'] ?? 'home';
 
-    $nombre_controlador = 'Controller\\' . ucfirst($controller_name) . 'Controller';
+    // Array asociativo de acciones y los metodos que deben llamar
+    // Lista blanca de rutas
+    $arrayActions = array(
+      'home' => 'index',
+      'registro' => 'registro',
+      'login' => 'login',
+      'logout' => 'logout',
+      'subir' => 'subir',
+      'juegos' => 'listar'
+    );
 
+    $nombre_controlador = 'Controller\\' . ucfirst($action_name) . 'Controller';
+
+    // Comprueva si hay un controlador con el nombre de acción y verifica si esa acción esta en la lista blanca de rutas
+    if (self::controllerExist($nombre_controlador) && key_exists($action_name, $arrayActions)) {
+      // Instancia un contralador y ejecuta el metodo especificado la lista blanca de rutas
+      self::callController($nombre_controlador, $arrayActions);
+    }
+  }
+
+  private static function controllerExist(string $nombre_controlador): bool
+  {
     if (
       !class_exists($nombre_controlador)
       || in_array(
@@ -24,16 +44,16 @@ class FrontController
       )
     ) {
       ErrorController::show_error404();
-      return;
-    }
-
-
-    $controlador = new $nombre_controlador();
-
-    if (is_callable([$controlador, $action_name])) {
-      $controlador->$action_name();
+      return false;
     } else {
-      ErrorController::show_error404();
+      return true;
     }
+  }
+
+  private static function callController($nombre_controlador, $arrayActions)
+  {
+    $controlador = new $nombre_controlador();
+    $method = $arrayActions['home'];
+    $controlador->$method();
   }
 }
