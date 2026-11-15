@@ -9,9 +9,10 @@
 
 <body>
   <h1>!Logeate¡</h1>
-  <form action="post">
-    <input type="text" placeholder="Correo">
-    <input type="text" placeholder="Contraseña">
+  <form action="?action=login" method="POST">
+    <input type="text" name="correo" placeholder="Correo">
+    <input type="text" name="contraseña" placeholder="Contraseña">
+    <input type="submit" name="enviar" value="Enviar">
     <button>Login</button>
   </form>
 </body>

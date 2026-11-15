@@ -9,12 +9,12 @@
 
 <body>
   <h1>!Registrate¡</h1>
-  <form action="post">
-    <input type="text" placeholder="Correo">
-    <input type="text" placeholder="Nickname">
-    <input type="text" placeholder="Contraseña">
-    <input type="text" placeholder="Confirmar Contraseña">
-    <button>Registrarse</button>
+  <form action="?action=registro" method="POST">
+    <input type="text" name="correo" placeholder="Correo">
+    <input type="text" name="nickname" placeholder="Nickname">
+    <input type="text" name="contraseña" placeholder="Contraseña">
+    <input type="text" name="contraseñaCon" placeholder="Confirmar Contraseña">
+    <input type="submit" name="enviar" value="Enviar">
   </form>
 </body>
 
