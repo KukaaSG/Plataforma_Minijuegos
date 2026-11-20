@@ -24,12 +24,22 @@ class FrontController
       'juegos' => 'listar'
     );
 
-    $nombre_controlador = 'Controller\\' . ucfirst($action_name) . 'Controller';
+    $arrayControllers = array(
+      'home' => 'Home',
+      'registro' => 'Auth',
+      'login' => 'Auth',
+      'logout' => 'Auth',
+      'subir' => 'Juego',
+      'juegos' => 'Juego'
+    );
+
+    $nombre_controlador = 'Controller\\' . ucfirst($arrayControllers[$action_name]) . 'Controller';
 
     // Comprueva si hay un controlador con el nombre de acción y verifica si esa acción esta en la lista blanca de rutas
+    /* if (self::controllerExist($nombre_controlador) && key_exists($action_name, $arrayActions)) { */
     if (self::controllerExist($nombre_controlador) && key_exists($action_name, $arrayActions)) {
       // Instancia un contralador y ejecuta el metodo especificado la lista blanca de rutas
-      self::callController($nombre_controlador, $arrayActions);
+      self::callController($nombre_controlador, $arrayActions, $action_name);
     }
   }
 
@@ -50,10 +60,10 @@ class FrontController
     }
   }
 
-  private static function callController($nombre_controlador, $arrayActions)
+  private static function callController(string $nombre_controlador, array $arrayActions, string $action_name)
   {
     $controlador = new $nombre_controlador();
-    $method = $arrayActions['home'];
+    $method = $arrayActions[$action_name];
     $controlador->$method();
   }
 }

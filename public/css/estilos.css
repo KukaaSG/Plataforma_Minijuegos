@@ -1,0 +1,53 @@
+@import url("https://fonts.googleapis.com/css2?family=Encode+Sans+Expanded:wght@100;200;300;400;500;600;700;800;900&family=Kedebideri:wght@400;500;600;700;800;900&display=swap");
+body {
+  background-color: #7cbd6f;
+  color: white;
+  font-family: "Kedebideri", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+  margin: 5vh 5vw;
+  position: relative;
+}
+
+.text {
+  position: absolute;
+  top: 20vh;
+}
+
+.text > h1 {
+  font-size: 5.5em;
+  margin: 0px;
+}
+.text > p {
+  font-size: 1.5em;
+  margin: 22px 13px;
+}
+
+.homeBotones {
+  position: absolute;
+  top: 26.4vh;
+  left: 63vw;
+}
+.homeBotones > form {
+  height: 200px;
+  width: 250px;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.homeBotones > form > button {
+  background-color: transparent;
+  border: none;
+  text-align: left;
+  color: white;
+  font-size: 1.2em;
+  font-style: italic;
+  padding: 15px;
+  transition: 1s;
+}
+
+.homeBotones > form > button:hover::before {
+  content: ">";
+  cursor: pointer;
+}
