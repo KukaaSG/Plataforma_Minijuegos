@@ -2,10 +2,7 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/registro.css">
-  <title>Registro</title>
 </head>
 
 <body>
@@ -16,19 +13,19 @@
         <div class="registroInputs">
           <div>
             <label for="correo">Correo</label>
-            <input type="text" id="correo" name="correo" placeholder="Correo">
+            <input type="email" id="correo" name="correo" placeholder="Correo">
           </div>
           <div>
-            <label for="nickname">nickname</label>
+            <label for="nickname">Nickname</label>
             <input type="text" id="nickname" name="nickname" placeholder="Nickname">
           </div>
           <div>
-            <label for="contraseña">contraseña</label>
-            <input type="text" id="contraseña" name="contraseña" placeholder="Contraseña">
+            <label for="contraseña">Contraseña</label>
+            <input type="password" id="contraseña" name="contraseña" placeholder="Contraseña">
           </div>
           <div>
-            <label for="contraseñaCon">contraseñaCon</label>
-            <input type="text" id="contraseñaCon" name="contraseñaCon" placeholder="Confirmar Contraseña">
+            <label for="contraseñaCon">Repetir Contraseña</label>
+            <input type="password" id="contraseñaCon" name="RepetirContraseña" placeholder="Confirmar Contraseña">
           </div>
         </div>
         <button type="submit" name="enviar" value="Enviar">Login</button>
