@@ -54,3 +54,20 @@ body {
   content: ">";
   cursor: pointer;
 }
+.sesion button {
+  color: white;
+  border: none;
+  border-radius: 5px;
+  transition: transform 0.25s ease;
+}
+
+.sesion button:hover {
+  transform: scale(1.1);
+}
+.loginB {
+  background-color: #7cbd6f;
+}
+
+.regisB {
+  background-color: #d9a30f;
+}

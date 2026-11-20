@@ -26,10 +26,10 @@
         Cerrar Sessión
       </button>
       <div class="sesion">
-        <button class="homeB" type=bsubmit" name="action" value="login">
+        <button class="loginB" type=bsubmit" name="action" value="login">
           Inicio de Sesión
         </button>
-        <button class="homeB" type=bsubmit" name="action" value="registro">
+        <button class="regisB" type=bsubmit" name="action" value="registro">
           Registrarse
         </button>
       </div>
