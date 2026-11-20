@@ -1,17 +1,20 @@
 @import url("https://fonts.googleapis.com/css2?family=Encode+Sans+Expanded:wght@100;200;300;400;500;600;700;800;900&family=Kedebideri:wght@400;500;600;700;800;900&display=swap");
 body {
-  background-color: #7cbd6f;
+  /* background-color: #7cbd6f; */
+  background-color: #2c5025;
+  height: 100vh;
   color: white;
   font-family: "Kedebideri", sans-serif;
   font-weight: 300;
   font-style: normal;
-  margin: 5vh 5vw;
+  margin: 0vh 0vw;
   position: relative;
 }
 
 .text {
   position: absolute;
-  top: 20vh;
+  top: 25vh;
+  margin-left: 10vw;
 }
 
 .text > h1 {
@@ -25,8 +28,8 @@ body {
 
 .homeBotones {
   position: absolute;
-  top: 26.4vh;
-  left: 63vw;
+  top: 30.2vh;
+  left: 68vw;
 }
 .homeBotones > form {
   height: 200px;

@@ -5,14 +5,15 @@ body {
   font-family: "Kedebideri", sans-serif;
   font-weight: 300;
   font-style: normal;
-  margin: 5vh 5vw;
+  margin: 0vh 0vw;
   position: relative;
+  height: 100vh;
 }
 
 .login {
   position: relative;
-  left: 34.4vw;
-  top: 7vh;
+  left: 39.4vw;
+  top: 6.2vh;
   height: 70vh;
   width: 22vw;
   border-radius: 5px;

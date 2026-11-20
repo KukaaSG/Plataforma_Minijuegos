@@ -5,17 +5,20 @@ body {
   font-family: "Kedebideri", sans-serif;
   font-weight: 300;
   font-style: normal;
-  margin: 5vh 5vw;
+  margin: 0vh 0vw;
   position: relative;
+  height: 100vh;
 }
 
 .cards {
+  position: relative;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
+  left: 3vw;
 }
 .gameCard {
-  width: 20vw;
-  height: 40vh;
+  width: 18vw;
+  height: 35vh;
   text-align: center;
   background-color: #7cbd6f;
   padding: 5px;
@@ -42,13 +45,14 @@ body {
   justify-content: center;
   margin-left: 0px;
   margin-top: 0px;
-  margin-bottom: 10px;
+  margin-bottom: 0px;
 }
 
 a {
   padding-bottom: 3px;
   padding-left: 15px;
   padding-right: 15px;
+  padding-top: 0px;
   border-bottom: solid 1px white;
   color: white;
   text-decoration: none;
@@ -59,8 +63,8 @@ a:hover {
 
 .noGamesError {
   position: absolute;
-  top: 33vh;
-  left: 27vw;
+  top: 37vh;
+  left: 31.5vw;
 }
 .noGamesError > h2 {
   font-size: 3em;

@@ -25,6 +25,9 @@ class Pages
         $$name = $value;
       }
     }
+
+    require self::VIEWS_DIR . 'header.php';
     require self::VIEWS_DIR . $pageName . '.php';
+    require self::VIEWS_DIR . 'footer.php';
   }
 }

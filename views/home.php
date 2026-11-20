@@ -2,10 +2,7 @@
 <html lang="es">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/estilos.css">
-  <title>HOME</title>
 </head>
 
 <body>
@@ -28,15 +25,16 @@
       <button class="homeB" type="submit" name="action" value="logout">
         Cerrar Sessión
       </button>
-
-      <button class="homeB" type=bsubmit" name="action" value="login">
-        Inicio de Sesión
-      </button>
-
+      <div class="sesion">
+        <button class="homeB" type=bsubmit" name="action" value="login">
+          Inicio de Sesión
+        </button>
+        <button class="homeB" type=bsubmit" name="action" value="registro">
+          Registrarse
+        </button>
+      </div>
     </form>
   </div>
 </body>
 
 </html>
-<!-- Esta página es para que el usuario vaya al resto de />
-<!-- Coockie de inición de sesión, si existe iniciar sessioń view o si no registrar view />
