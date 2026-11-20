@@ -29,4 +29,9 @@ class JuegoController
   {
     $this->pages->render($view);
   }
+
+  public function logout(): void
+  {
+    echo "logout";
+  }
 }

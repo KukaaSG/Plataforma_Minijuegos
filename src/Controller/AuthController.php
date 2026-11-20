@@ -22,10 +22,10 @@ class AuthController
     // Esto lo podeis eliminar
     // Solo lo hice para ver si llegaban bien las cosas
     // del formulario de las vistas
-    echo "<br>";
-    echo $_POST['correo'] . ' login';
-    echo "<br>";
-    echo $_POST['contraseña'] . ' login';
+    /* echo "<br>"; */
+    /* echo $_POST['correo'] . ' login'; */
+    /* echo "<br>"; */
+    /* echo $_POST['contraseña'] . ' login'; */
   }
 
   public function registro(): void
@@ -35,14 +35,14 @@ class AuthController
     // Esto lo podeis eliminar
     // Solo lo hice para ver si llegaban bien las cosas
     // del formulario de las vistas
-    echo "<br>";
-    echo $_POST['correo'] . ' registro';
-    echo "<br>";
-    echo $_POST['nickname'] . 'registro';
-    echo "<br>";
-    echo $_POST['contraseña'] . 'registro';
-    echo "<br>";
-    echo $_POST['contraseñaCon'] . 'registro';
+    /* echo "<br>"; */
+    /* echo $_POST['correo'] . ' registro'; */
+    /* echo "<br>"; */
+    /* echo $_POST['nickname'] . 'registro'; */
+    /* echo "<br>"; */
+    /* echo $_POST['contraseña'] . 'registro'; */
+    /* echo "<br>"; */
+    /* echo $_POST['contraseñaCon'] . 'registro'; */
   }
 
   public function loadView(string $view): void
