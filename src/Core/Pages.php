@@ -18,8 +18,13 @@ class Pages
 {
   private const string VIEWS_DIR = __DIR__ . '/../../views/';
 
-  public function render(string $pageName): void
+  public function render(string $pageName, ?array $params = null): void
   {
+    if ($params !== null) {
+      foreach ($params as $name => $value) {
+        $$name = $value;
+      }
+    }
     require self::VIEWS_DIR . $pageName . '.php';
   }
 }
