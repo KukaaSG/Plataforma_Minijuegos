@@ -34,5 +34,8 @@ class FrontController
       }
     }
 }
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> a23050d (lo hago por un problema personal con git)
