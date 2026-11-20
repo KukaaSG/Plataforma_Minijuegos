@@ -22,9 +22,10 @@ class JuegoController
 
   public function listar(): void
   {
+    // Este array se puede elinar, es solo de prueva para los json
     $arrayJuegos = [
       array(
-        "titulo" => "Juego 1",
+        "titulo" => "<b>Juego 1</b>",
         "descripcion" => "Des 1",
         "autor" => "aut 1",
         "categoria" => "cat 1",

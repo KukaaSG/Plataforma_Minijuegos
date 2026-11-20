@@ -11,21 +11,21 @@
     <?php if (count($juegos) > 0): ?>
       <?php foreach ($juegos as $juego): ?>
         <div class="gameCard">
-          <h2><?= $juego['titulo'] ?></h2>
+          <h2><?= htmlspecialchars($juego['titulo'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?></h2>
           <div class="gameContent" id="descripcion">
             <h3>Descripcion:</h3>
-            <p> <?= $juego['descripcion'] ?></p>
+            <p> <?= htmlspecialchars($juego['descripcion'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8')  ?></p>
           </div>
           <div class="gameContent" id="gameAutor">
             <h3>Autor: </h3>
-            <p> <?= $juego['autor'] ?></p>
+            <p> <?= htmlspecialchars($juego['autor'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8')  ?></p>
           </div>
-          <a href="<?= $juego['archivo'] ?>"><?= $juego['nombre_original'] ?></a>
+          <a href="<?= htmlspecialchars($juego['archivo'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>"><?= $juego['nombre_original'] ?></a>
         </div>
       <?php endforeach; ?>
     <?php elseif (count($juegos) === 0): ?>
       <div class="noGamesError">
-        <h2>No hay juegos, todovía</h2>
+        <h2>Todavía no hay juegos subidos</h2>
       </div>
     <?php endif; ?>
   </div>
