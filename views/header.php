@@ -17,7 +17,7 @@
       <h1>Home</h1>
     </button>
   </form>
-  <h1 class="headerTitle">TITULO</h1>
+  <h1 class="headerTitle"><?= $pageTitle ?></h1>
 
 
 </header>

@@ -17,7 +17,7 @@ class JuegoController
 
   public function subir(): void
   {
-    $this->loadView("subir_juego");
+    $this->loadView("subir_juego", ['pageTitle' => 'Subir']);
   }
 
   public function listar(): void
@@ -80,7 +80,7 @@ class JuegoController
         "nombre_original" => "dragon.zip"
       ),
     ];
-    $this->loadView("juegos", ['juegos' => $arrayJuegos]);
+    $this->loadView("juegos", ['juegos' => $arrayJuegos, 'pageTitle' => 'Juegos']);
   }
 
   public function loadView(string $view, ?array $juegos = null): void

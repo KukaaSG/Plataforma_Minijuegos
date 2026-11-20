@@ -17,8 +17,8 @@ class AuthController
 
   public function login(): void
   {
-    $this->loadView("login");
 
+    $this->pages->render("login", ['pageTitle' => 'Login']);
     // Esto lo podeis eliminar
     // Solo lo hice para ver si llegaban bien las cosas
     // del formulario de las vistas
@@ -30,8 +30,7 @@ class AuthController
 
   public function registro(): void
   {
-    $this->loadView("registro");
-
+    $this->pages->render("registro", ['pageTitle' => 'Registro']);
     // Esto lo podeis eliminar
     // Solo lo hice para ver si llegaban bien las cosas
     // del formulario de las vistas
@@ -43,10 +42,5 @@ class AuthController
     /* echo $_POST['contraseña'] . 'registro'; */
     /* echo "<br>"; */
     /* echo $_POST['contraseñaCon'] . 'registro'; */
-  }
-
-  public function loadView(string $view): void
-  {
-    $this->pages->render($view);
   }
 }

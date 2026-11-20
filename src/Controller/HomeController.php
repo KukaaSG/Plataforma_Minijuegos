@@ -23,6 +23,6 @@ class HomeController
   // Obtiene la pagina home
   public function index(): void
   {
-    $this->pages->render("home");
+    $this->pages->render("home", ['pageTitle' => 'Home']);
   }
 }
