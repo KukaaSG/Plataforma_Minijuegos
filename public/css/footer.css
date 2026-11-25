@@ -1,0 +1,13 @@
+footer {
+  position: absolute;
+  background-color: #7cbd6f;
+  width: 99.9vw;
+  left: 0px;
+  bottom: 0vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+footer > p {
+  text-align: center;
+}

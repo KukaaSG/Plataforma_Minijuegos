@@ -1,0 +1,75 @@
+@import url("https://fonts.googleapis.com/css2?family=Encode+Sans+Expanded:wght@100;200;300;400;500;600;700;800;900&family=Kedebideri:wght@400;500;600;700;800;900&display=swap");
+body {
+  background-color: #2c5025;
+  color: white;
+  font-family: "Kedebideri", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+  margin: 0vh 0vw;
+  position: relative;
+  height: 100vh;
+}
+
+.cards {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  left: 3vw;
+}
+.gameCard {
+  width: 18vw;
+  height: 35vh;
+  text-align: center;
+  background-color: #7cbd6f;
+  padding: 5px;
+  border-radius: 5px;
+  margin-top: 23px;
+}
+
+.gameContent {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#descripcion > h3 {
+  margin: 0px;
+  margin-top: 2px;
+}
+#descripcion > p {
+  margin-top: 2px;
+}
+#gameAutor {
+  flex-direction: row;
+  justify-content: center;
+  margin-left: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+a {
+  padding-bottom: 3px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 0px;
+  border-bottom: solid 1px white;
+  color: white;
+  text-decoration: none;
+}
+a:hover {
+  border-bottom: solid 1px #ebc11c;
+}
+
+.noGamesError {
+  position: absolute;
+  top: 37vh;
+  left: 31.5vw;
+}
+.noGamesError > h2 {
+  font-size: 3em;
+  font-style: italic;
+  padding-right: 10px;
+  padding-left: 3px;
+  background-color: #d9a30f;
+}
