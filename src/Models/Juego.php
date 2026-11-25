@@ -48,7 +48,7 @@ class JuegoModel
         // Mueve el fichero temporal a su destino definitivo
         $destino = rtrim($this->rutaUploads, '/\\') . DIRECTORY_SEPARATOR . $nombreUnico;
         if (!move_uploaded_file($rutaTemporal, $destino)) {
-            throw new RuntimeException('No se pudo guardar el archivo subido.');
+            throw new \RuntimeException('No se pudo guardar el archivo subido.');
         }
 
         // Registra el juego (la ruta es relativa a public/)
