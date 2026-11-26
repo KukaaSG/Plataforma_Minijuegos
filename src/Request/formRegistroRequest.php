@@ -1,70 +1,52 @@
-<?php
 
-declare(strict_types=1);
+<?php
 
 namespace Request;
 
-class formRegistroRequest
-{
-  private array $post;
-  private array $errores = [];
+class formRegistroRequest extends Request {
+  private $username;
+  private $email;
+  private $password;
+  private $repetir;
 
-  public function __construct(array $post)
-  {
-    $this->post = $post;
+  public function __construct($post) {
+      $this->username = $this->limpiar($post, 'nickname');
+      $this->email = mb_strtolower($this->limpiar($post, 'correo'));
+      $this->password = is_string($post['contraseña'] ?? null) ? $post['contraseña'] : '';
+      $this->repetir = is_string($post['RepetirContraseña'] ?? null) ? $post['RepetirContraseña'] : '';
+      $this->datos = [
+          'username' => $this->username,
+          'email' => $this->email
+      ];
   }
-
-  public function esValido(): bool
-  {
-    if ($this->username() === '') {
-      $this->errores['username'] = 'El nickname es obligatorio';
-    }
-
-    if ($this->email() === '') {
-      $this->errores['email'] = 'El correo es obligatorio';
-    }
-
-    if ($this->password() === '') {
-      $this->errores['password'] = 'La contraseña es obligatoria';
-    }
-
-    if ($this->password() !== ($this->post['RepetirContraseña'] ?? '')) {
-      $this->errores['repetir'] = 'Las contraseñas no coinciden';
-    }
-
-    return $this->errores === [];
+  protected function validar() {
+      if ($this->username == '') {
+        $this->agregarError('username', 'El nickname es obligatorio');
+      } elseif (mb_strlen($this->username) < 3 || mb_strlen($this->username) > 20) {
+        $this->agregarError('username', 'El nickname debe tener entre 3 y 20 caracteres');
+      }
+      if ($this->email == '') {
+        $this->agregarError('email', 'El correo es obligatorio');
+      } elseif (!filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
+        $this->agregarError('email', 'El correo no es válido');
+      }
+      if ($this->password == '') {
+        $this->agregarError('password', 'La contraseña es obligatoria');
+      } elseif (strlen($this->password) < 6) {
+        $this->agregarError('password', 'La contraseña debe tener al menos 6 caracteres');
+      }
+      if ($this->repetir != $this->password) {
+        $this->agregarError('repetir', 'Las contraseñas no coinciden');
+      }
   }
-
-  public function username(): string
-  {
-    return trim($this->post['nickname'] ?? '');
+  public function username() {
+    return $this->username;
   }
-
-  public function email(): string
-  {
-    return trim($this->post['correo'] ?? '');
+  public function email() {
+    return $this->email;
   }
-
-  public function password(): string
-  {
-    return $this->post['contraseña'] ?? '';
-  }
-
-  public function agregarError(string $campo, string $mensaje): void
-  {
-    $this->errores[$campo] = $mensaje;
-  }
-
-  public function errores(): array
-  {
-    return $this->errores;
-  }
-
-  public function datos(): array
-  {
-    return [
-      'username' => $this->username(),
-      'email'    => $this->email(),
-    ];
+  public function password() {
+    return $this->password;
   }
 }
+
