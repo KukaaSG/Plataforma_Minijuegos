@@ -49,10 +49,10 @@ class AuthController
         }
 
         $this->pages->render('login', [
-            'pageTitle' => 'Login',
-            'errores' => $errores,
-            'datos' => $datos,
-            'mensaje' => $mensaje
+          'pageTitle' => 'Login',
+          'errores' => $errores,
+          'datos' => $datos,
+          'mensaje' => $mensaje
         ]);
     }
 
@@ -95,8 +95,7 @@ class AuthController
         ]);
     }
 
-    public function logout()
-    {
+    public function logout() {
       $_SESSION = [];
       session_destroy();
       header('Location: index.php?action=home');
