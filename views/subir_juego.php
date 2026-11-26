@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <div class="subir">
   <form action="?action=subir" method="POST" enctype="multipart/form-data">
 
@@ -36,23 +35,3 @@
     <button type="submit">Subir archivo</button>
   </form>
 </div>
-=======
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Subir Juegos</title>
-</head>
-
-<body>
-  <form action="/?action=subir" method="POST" enctype="multipart/form-data">
-    <label for="archivo">Elige un archivo:</label>
-    <input type="file" id="archivo" name="archivo">
-    <button type="submit">Subir archivo</button>
-  </form>
-</body>
-
-</html>
->>>>>>> 934f177d6a363cb90b9f59934b3432f310a4f1d0
