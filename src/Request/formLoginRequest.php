@@ -1,32 +1,54 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Request;
 
-class formLoginRequest extends Request
+class formLoginRequest
 {
-  private $email;
-  private $password;
-  public function __construct($post) {
-    $this->email = mb_strtolower($this->limpiar($post, 'correo'));
-    $this->password = $post['contraseña'] ?? '';
-    $this->datos = [
-        'email' => $this->email
-    ];
+  private array $post;
+  private array $errores = [];
+
+  public function __construct(array $post)
+  {
+    $this->post = $post;
   }
-  protected function validar(){
-    if ($this->email == '') {
-        $this->agregarError('email', 'El correo es obligatorio');
-    } elseif (!filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
-        $this->agregarError('email', 'El correo no es válido');
+
+  public function esValido(): bool
+  {
+    if ($this->email() === '') {
+      $this->errores['email'] = 'El correo es obligatorio';
     }
-    if ($this->password == '') {
-        $this->agregarError('password', 'La contraseña es obligatoria');
+
+    if ($this->password() === '') {
+      $this->errores['password'] = 'La contraseña es obligatoria';
     }
+
+    return $this->errores === [];
   }
-  public function email() {
-    return $this->email;
+
+  public function email(): string
+  {
+    return trim($this->post['correo'] ?? '');
   }
-  public function password() {
-    return $this->password;
+
+  public function password(): string
+  {
+    return $this->post['contraseña'] ?? '';
+  }
+
+  public function agregarError(string $campo, string $mensaje): void
+  {
+    $this->errores[$campo] = $mensaje;
+  }
+
+  public function errores(): array
+  {
+    return $this->errores;
+  }
+
+  public function datos(): array
+  {
+    return ['email' => $this->email()];
   }
 }

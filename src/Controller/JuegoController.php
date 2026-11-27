@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Controller;
 
 use Core\Pages;
@@ -8,50 +10,76 @@ use Request\formSubirJuegoRequest;
 
 class JuegoController
 {
-    private $pages;
-    private $juegos;
+  private Pages $pages;
+  private JuegoModel $juegos;
 
-    public function __construct() {
-      $this->pages = new Pages();
-      $this->juegos = new JuegoModel(RUTA_JUEGOS, RUTA_UPLOADS);
-    }
+  public function __construct()
+  {
+    $this->pages = new Pages();
 
-    public function subir() {
-      $errores = [];
-      $datos = [];
+    require_once __DIR__ . '/../Models/Juego.php';
 
-      if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $request = new formSubirJuegoRequest($_POST, $_FILES);
-        if ($request->esValido()) {
-          $this->juegos->guardar([
-            'titulo' => $request->titulo(),
-            'descripcion' => $request->descripcion(),
-            'autor' => 'invitado',
-            'categoria' => $request->categoria(),
-            'nombre_original' => $request->nombreOriginal()
-          ], $request->rutaTemporal());
-          header('Location: index.php?action=juegos');
-          exit;
-        }
+    $this->juegos = new JuegoModel(RUTA_JUEGOS, RUTA_UPLOADS);
+  }
 
-        $errores = $request->errores();
-        $datos = $request->datos();
-      }
+  public function subir(): void
+  {
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
-      $this->pages->render('subir_juego', [
+      $this->loadView("subir_juego", [
         'pageTitle' => 'Subir',
-        'errores' => $errores,
-        'datos' => $datos,
+        'errores' => [],
+        'datos' => [],
         'categorias' => CATEGORIAS
       ]);
+
+      return;
     }
 
-    public function listar() {
-      $this->pages->render('juegos', [
-        'juegos' => $this->juegos->todos(),
-        'pageTitle' => 'Juegos'
+    $request = new formSubirJuegoRequest($_POST, $_FILES);
+
+    if (!$request->esValido()) {
+      $this->loadView("subir_juego", [
+        'pageTitle' => 'Subir',
+        'errores' => $request->errores(),
+        'datos' => $request->datos(),
+        'categorias' => CATEGORIAS
       ]);
-    }
-}
 
+      return;
+    }
+
+    $this->juegos->guardar([
+      'titulo' => $request->titulo(),
+      'descripcion' => $request->descripcion(),
+      'autor' => 'invitado',
+      'categoria' => $request->categoria(),
+      'nombre_original' => $request->nombreOriginal()
+    ], $request->rutaTemporal());
+
+    header('Location: index.php?action=juegos');
+    exit;
+  }
+
+  public function listar(): void
+  {
+    $arrayJuegos = $this->juegos->todos();
+
+    $this->loadView("juegos", [
+      'juegos' => $arrayJuegos,
+      'pageTitle' => 'Juegos'
+    ]);
+  }
+
+  public function loadView(string $view, ?array $juegos = null): void
+  {
+    $this->pages->render($view, $juegos);
+  }
+
+  public function logout(): void
+  {
+    header('Location: index.php?action=home');
+    exit;
+  }
+}
 

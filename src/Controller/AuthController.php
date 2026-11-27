@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Controller;
 
 use Core\Pages;
@@ -9,97 +11,125 @@ use Request\formLoginRequest;
 
 class AuthController
 {
-    private $pages;
-    private $jugador;
+  private Pages $pages;
+  private Jugador $jugador;
 
-    public function __construct()
-    {
-        $this->pages = new Pages();
-        $this->jugador = new Jugador(RUTA_JUGADORES);
+  public function __construct()
+  {
+    $this->pages = new Pages();
+    $this->jugador = new Jugador(RUTA_JUGADORES);
+  }
+
+  public function login(): void
+  {
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+
+      $mensaje = '';
+
+      if (isset($_GET['registrado'])) {
+        $mensaje = 'Registro correcto, ya puedes iniciar sesión';
+      }
+
+      $this->pages->render("login", [
+        'pageTitle' => 'Login',
+        'errores' => [],
+        'datos' => [],
+        'mensaje' => $mensaje
+      ]);
+
+      return;
     }
 
-    public function login(){
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $request = new formLoginRequest($_POST);
 
-          $request = new formLoginRequest($_POST);
-          if ($request->esValido()) {
-            $usuario = $this->jugador->verificarCredenciales(
-                $request->email(),
-                $request->password()
-            );
-            if ($usuario) {
-              header('Location: index.php?action=home&bienvenido=' . urlencode($usuario['username']));
-              exit;
-            }
-            $request->agregarError('general', 'Email o contraseña incorrectos');
-          }
+    if ($request->esValido()) {
 
-          $errores = $request->errores();
-          $datos = $request->datos();
-        } 
-        else {
-          $errores = [];
-          $datos = [];
-        }
+      $usuario = $this->jugador->verificarCredenciales(
+        $request->email(),
+        $request->password()
+      );
 
-        $mensaje = '';
-
-        if (isset($_GET['registrado'])) {
-          $mensaje = 'Registro correcto, ya puedes iniciar sesión';
-        }
-
-        $this->pages->render('login', [
-          'pageTitle' => 'Login',
-          'errores' => $errores,
-          'datos' => $datos,
-          'mensaje' => $mensaje
-        ]);
+      if ($usuario === null) {
+        $request->agregarError('general', 'Email o contraseña incorrectos');
+      }
     }
 
+    if ($request->errores()) {
+      $this->pages->render("login", [
+        'pageTitle' => 'Login',
+        'errores' => $request->errores(),
+        'datos' => $request->datos(),
+        'mensaje' => ''
+      ]);
 
-    public function registro(){
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-          $request = new formRegistroRequest($_POST);
-
-            if ($request->esValido()) {
-
-              if ($this->jugador->existeUsername($request->username())) {
-                $request->agregarError('username', 'Ese usuario ya existe');
-              }
-              if ($this->jugador->existeEmail($request->email())) {
-                $request->agregarError('email', 'Ese correo ya está registrado');
-              }
-              if (!$request->errores()) {
-                $this->jugador->crear(
-                  $request->username(),
-                  $request->email(),
-                  $request->password()
-                );
-                header('Location: index.php?action=login&registrado=1');
-                exit;
-              }
-            }
-
-            $errores = $request->errores();
-            $datos = $request->datos();
-        } 
-        else{
-          $errores = [];
-          $datos = [];
-        }
-
-        $this->pages->render('registro', [
-          'pageTitle' => 'Registro',
-          'errores' => $errores,
-          'datos' => $datos
-        ]);
+      return;
     }
 
-    public function logout() {
-      $_SESSION = [];
-      session_destroy();
-      header('Location: index.php?action=home');
-      exit;
+    header('Location: index.php?' . http_build_query([
+      'action' => 'home',
+      'bienvenido' => $usuario['username']
+    ]));
+    exit;
+  }
+
+  public function registro(): void
+  {
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+
+      $this->pages->render("registro", [
+        'pageTitle' => 'Registro',
+        'errores' => [],
+        'datos' => []
+      ]);
+
+      return;
     }
+
+    $request = new formRegistroRequest($_POST);
+
+    if ($request->esValido()) {
+
+      if ($this->jugador->existeUsername($request->username())) {
+        $request->agregarError('username', 'Ese usuario ya existe');
+      }
+
+      if ($this->jugador->existeEmail($request->email())) {
+        $request->agregarError('email', 'Ese correo ya está registrado');
+      }
+    }
+
+    if ($request->errores()) {
+      $this->pages->render("registro", [
+        'pageTitle' => 'Registro',
+        'errores' => $request->errores(),
+        'datos' => $request->datos()
+      ]);
+
+      return;
+    }
+
+    $this->jugador->crear(
+      $request->username(),
+      $request->email(),
+      $request->password()
+    );
+
+    header('Location: index.php?action=login&registrado=1');
+    exit;
+  }
+
+  public function logout(): void
+  {
+    if (session_status() === PHP_SESSION_NONE) {
+      session_start();
+    }
+
+    $_SESSION = [];
+
+    session_destroy();
+
+    header('Location: index.php?action=home');
+    exit;
+  }
 }
 
