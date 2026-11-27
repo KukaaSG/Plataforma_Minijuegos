@@ -31,6 +31,7 @@ class FrontController
       $objeto = new $controlador();
       $objeto->$metodo();
     } catch (\Throwable $e) {
+      error_log((string) $e);
       ErrorController::show_error500();
     }
   }

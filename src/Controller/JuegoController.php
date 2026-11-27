@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Controller;
 
 use Core\Pages;
-use Models\JuegoModel;
+use Models\Juego;
 use Request\formSubirJuegoRequest;
 
 class JuegoController
@@ -16,12 +16,11 @@ class JuegoController
   public function __construct()
   {
     $this->pages = new Pages();
-    $this->juegos = new JuegoModel(RUTA_JUEGOS, RUTA_UPLOADS);
+    $this->juegos = new Juego(RUTA_JUEGOS, RUTA_UPLOADS);
   }
 
   public function subir()
   {
-    echo "se mete en el index";
     $errores = [];
     $datos = [];
 

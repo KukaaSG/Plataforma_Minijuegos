@@ -59,8 +59,8 @@ class Jugador{
     {
         // Crea la carpeta data/ si no existe
         $carpeta = dirname($this->ruta);
-        if (!is_dir($carpeta)) {
-            mkdir($carpeta, 0755, true);
+        if (!is_dir($carpeta) && !mkdir($carpeta, 0775, true) && !is_dir($carpeta)) {
+            throw new \RuntimeException("No se pudo crear el directorio: {$carpeta}");
         }
 
         $jugadores = $this->todos();
@@ -71,11 +71,14 @@ class Jugador{
             'password' => password_hash($password, PASSWORD_DEFAULT),
         ];
 
-        file_put_contents(
+        $resultado = file_put_contents(
             $this->ruta,
             json_encode($jugadores, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE),
             LOCK_EX
         );
+        if ($resultado === false) {
+            throw new \RuntimeException("No se pudo escribir en el archivo: {$this->ruta}");
+        }
     }
 
     // Busca al jugador por correo y comprueba la contraseña. Devuelve los datos del jugador si todo es correcto, y si no lo es, devuelve null.
