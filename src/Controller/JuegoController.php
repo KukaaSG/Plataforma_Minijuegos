@@ -30,7 +30,7 @@ class JuegoController
         $this->juegos->guardar([
           'titulo' => $request->titulo(),
           'descripcion' => $request->descripcion(),
-          'autor' => 'invitado',
+          'autor' => $request->autor(),
           'categoria' => $request->categoria(),
           'nombre_original' => $request->nombreOriginal()
         ], $request->rutaTemporal());

@@ -99,7 +99,9 @@ class AuthController
   public function logout()
   {
     $_SESSION = [];
-    session_destroy();
+    if (session_status() === PHP_SESSION_ACTIVE) {
+      session_destroy();
+    }
     header('Location: index.php?action=home');
     exit;
   }

@@ -15,6 +15,9 @@
           <input type="text" id="titulo" name="titulo" value="<?= htmlspecialchars($datos['titulo'] ?? '') ?>">
           <?php if (isset($errores['titulo'])): ?><span class="error"><?= htmlspecialchars($errores['titulo']) ?></span><?php endif; ?>
 
+          <label for="autor">Autor</label>
+          <input type="text" id="titulo" name="autor" value="<?= htmlspecialchars($datos['autor'] ?? '') ?>">
+          <?php if (isset($errores['autor'])): ?><span class="error"><?= htmlspecialchars($errores['autor']) ?></span><?php endif; ?>
           <label for="descripcion">Descripción</label>
           <textarea id="descripcion" name="descripcion"><?= htmlspecialchars($datos['descripcion'] ?? '') ?></textarea>
           <?php if (isset($errores['descripcion'])): ?><span class="error"><?= htmlspecialchars($errores['descripcion']) ?></span><?php endif; ?>

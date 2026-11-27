@@ -5,12 +5,14 @@ namespace Request;
 class formSubirJuegoRequest extends Request
 {
   private $titulo;
+  private $autor;
   private $descripcion;
   private $categoria;
   private $archivo;
   public function __construct($post, $files)
   {
     $this->titulo = $this->limpiar($post, 'titulo');
+    $this->autor = $this->limpiar($post, 'autor');
     $this->descripcion = $this->limpiar($post, 'descripcion');
     $this->categoria = $this->limpiar($post, 'categoria');
     $this->archivo = $files['archivo'] ?? [];
@@ -61,6 +63,10 @@ class formSubirJuegoRequest extends Request
     return $this->titulo;
   }
 
+  public function autor()
+  {
+    return $this->autor;
+  }
   public function descripcion()
   {
     return $this->descripcion;

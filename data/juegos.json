@@ -30,5 +30,29 @@
         "categoria": "Puzzle",
         "archivo": "uploads\/juegos\/20261127_092305_nixConfig-main.zip",
         "nombre_original": "nixConfig-main.zip"
+    },
+    {
+        "titulo": "jugeo 6",
+        "descripcion": "ueou",
+        "autor": "invitado",
+        "categoria": "Arcade",
+        "archivo": "uploads\/juegos\/20261127_093034_nixConfig-main.zip",
+        "nombre_original": "nixConfig-main.zip"
+    },
+    {
+        "titulo": "title",
+        "descripcion": "deck",
+        "autor": "invitado",
+        "categoria": "Estrategia",
+        "archivo": "uploads\/juegos\/20261127_093223_nixConfig-main.zip",
+        "nombre_original": "nixConfig-main.zip"
+    },
+    {
+        "titulo": "aaa",
+        "descripcion": "aaa",
+        "autor": "aaaa",
+        "categoria": "Estrategia",
+        "archivo": "uploads\/juegos\/20261127_093539_nixConfig-main.zip",
+        "nombre_original": "nixConfig-main.zip"
     }
 ]
