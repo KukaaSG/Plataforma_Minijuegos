@@ -7,22 +7,28 @@ namespace Controller;
 use Core\Pages;
 use Controller\JuegoController;
 
-/* use views\ */
-
 class HomeController
 {
   private Pages $pages;
-  private JuegoController $juegoController;
+  /* private JuegoController $juegoController; */
 
   public function __construct()
   {
     $this->pages = new Pages();
-    $this->juegoController = new JuegoController();
+    /* $this->juegoController = new JuegoController(); */
   }
 
-  // Obtiene la pagina home
   public function index(): void
   {
-    $this->pages->render("home", ['pageTitle' => 'Home']);
+    $usuario = $_GET['bienvenido'] ?? null;
+
+    if ($usuario !== null && trim((string)$usuario) === '') {
+      $usuario = null;
+    }
+
+    $this->pages->render("home", [
+      'pageTitle' => 'Home',
+      'usuario' => $usuario
+    ]);
   }
 }

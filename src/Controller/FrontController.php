@@ -4,66 +4,34 @@ declare(strict_types=1);
 
 namespace Controller;
 
-use Controller\ErrorController;
-
 class FrontController
 {
-  public static function main(): void
+  public static function main()
   {
-    // Obtener acción de la url, si no hay nada llama por defecto a HomeController
-    $action_name = $_GET['action'] ?? 'home';
-
-    // Array asociativo de acciones y los metodos que deben llamar
-    // Lista blanca de rutas
-    $arrayActions = array(
-      'home' => 'index',
-      'registro' => 'registro',
-      'login' => 'login',
-      'logout' => 'logout',
-      'subir' => 'subir',
-      'juegos' => 'listar'
-    );
-
-    $arrayControllers = array(
-      'home' => 'Home',
-      'registro' => 'Auth',
-      'login' => 'Auth',
-      'logout' => 'Auth',
-      'subir' => 'Juego',
-      'juegos' => 'Juego'
-    );
-
-    $nombre_controlador = 'Controller\\' . ucfirst($arrayControllers[$action_name]) . 'Controller';
-
-    // Comprueva si hay un controlador con el nombre de acción y verifica si esa acción esta en la lista blanca de rutas
-    /* if (self::controllerExist($nombre_controlador) && key_exists($action_name, $arrayActions)) { */
-    if (self::controllerExist($nombre_controlador) && key_exists($action_name, $arrayActions)) {
-      // Instancia un contralador y ejecuta el metodo especificado la lista blanca de rutas
-      self::callController($nombre_controlador, $arrayActions, $action_name);
-    }
-  }
-
-  private static function controllerExist(string $nombre_controlador): bool
-  {
-    if (
-      !class_exists($nombre_controlador)
-      || in_array(
-        $nombre_controlador,
-        [self::class, ErrorController::class],
-        true
-      )
-    ) {
+    $action = $_GET['action'] ?? 'home';
+    $acciones = [
+      'home' => ['HomeController', 'index'],
+      'registro' => ['AuthController', 'registro'],
+      'login' => ['AuthController', 'login'],
+      'logout' => ['AuthController', 'logout'],
+      'subir' => ['JuegoController', 'subir'],
+      'juegos' => ['JuegoController', 'listar']
+    ];
+    if (!isset($acciones[$action])) {
       ErrorController::show_error404();
-      return false;
-    } else {
-      return true;
+      return;
     }
-  }
-
-  private static function callController(string $nombre_controlador, array $arrayActions, string $action_name)
-  {
-    $controlador = new $nombre_controlador();
-    $method = $arrayActions[$action_name];
-    $controlador->$method();
+    $controlador = 'Controller\\' . $acciones[$action][0];
+    $metodo = $acciones[$action][1];
+    if (!class_exists($controlador)) {
+      ErrorController::show_error404();
+      return;
+    }
+    try {
+      $objeto = new $controlador();
+      $objeto->$metodo();
+    } catch (\Throwable $e) {
+      ErrorController::show_error500();
+    }
   }
 }

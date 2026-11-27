@@ -8,17 +8,24 @@
 <body>
   <div class="login">
     <h1>!Logeate¡</h1>
+    <?php if (!empty($mensaje)): ?>
+      <p class="mensaje"><?= htmlspecialchars($mensaje) ?></p>
+    <?php endif; ?>
+    <?php if (!empty($errores['general'])): ?>
+      <p class="error"><?= htmlspecialchars($errores['general']) ?></p>
+    <?php endif; ?>
     <form action="?action=login" method="POST">
       <div class="loginForm">
         <div class="loginInputs">
           <div>
             <label for="correo">Correo</label>
-            <input type="correo" id="correo" name="correo" placeholder="correo@email.com" value="">
+            <input type="text" id="correo" name="correo" placeholder="correo@email.com" value="<?= htmlspecialchars($datos['email'] ?? '') ?>">
           </div>
 
           <div>
             <label for="contraseña">Contraseña</label>
             <input type="password" id="contraseña" name="contraseña" placeholder="Contraseña" value="">
+            <?php if (isset($errores['password'])): ?><span class="error"><?= htmlspecialchars($errores['password']) ?></span><?php endif; ?>
           </div>
         </div>
         <button type="submit" name="enviar">Login</button>

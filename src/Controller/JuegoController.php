@@ -5,92 +5,57 @@ declare(strict_types=1);
 namespace Controller;
 
 use Core\Pages;
+use Models\JuegoModel;
+use Request\formSubirJuegoRequest;
 
 class JuegoController
 {
-  private Pages $pages;
+  private $pages;
+  private $juegos;
 
   public function __construct()
   {
     $this->pages = new Pages();
+    $this->juegos = new JuegoModel(RUTA_JUEGOS, RUTA_UPLOADS);
   }
 
-  public function subir(): void
+  public function subir()
   {
-    $this->loadView("subir_juego", ['pageTitle' => 'Subir']);
+    echo "se mete en el index";
+    $errores = [];
+    $datos = [];
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $request = new formSubirJuegoRequest($_POST, $_FILES);
+      if ($request->esValido()) {
+        $this->juegos->guardar([
+          'titulo' => $request->titulo(),
+          'descripcion' => $request->descripcion(),
+          'autor' => 'invitado',
+          'categoria' => $request->categoria(),
+          'nombre_original' => $request->nombreOriginal()
+        ], $request->rutaTemporal());
+        header('Location: index.php?action=juegos');
+        exit;
+      }
+
+      $errores = $request->errores();
+      $datos = $request->datos();
+    }
+
+    $this->pages->render('subir_juego', [
+      'pageTitle' => 'Subir',
+      'errores' => $errores,
+      'datos' => $datos,
+      'categorias' => CATEGORIAS
+    ]);
   }
 
-  public function listar(): void
+  public function listar()
   {
-    // Este array se puede elinar, es solo de prueva para los json
-    $arrayJuegos = [
-      array(
-        "titulo" => "<b>Juego 1</b>",
-        "descripcion" => "Des 1",
-        "autor" => "aut 1",
-        "categoria" => "cat 1",
-        "archivo" => "rut arch 1",
-        "nombre_original" => "dragon.zip"
-      ),
-      array(
-        "titulo" => "Juego 2",
-        "descripcion" => "Des 2",
-        "autor" => "aut 2",
-        "categoria" => "cat 2",
-        "archivo" => "rut arch 2",
-        "nombre_original" => "dragon.zip"
-      ),
-      array(
-        "titulo" => "Juego 3",
-        "descripcion" => "Des 3",
-        "autor" => "aut 3",
-        "categoria" => "cat 3",
-        "archivo" => "rut arch 3",
-        "nombre_original" => "dragon.zip"
-      ),
-      array(
-        "titulo" => "Juego 3",
-        "descripcion" => "Des 3",
-        "autor" => "aut 3",
-        "categoria" => "cat 3",
-        "archivo" => "rut arch 3",
-        "nombre_original" => "dragon.zip"
-      ),
-      array(
-        "titulo" => "Juego 3",
-        "descripcion" => "Des 3",
-        "autor" => "aut 3",
-        "categoria" => "cat 3",
-        "archivo" => "rut arch 3",
-        "nombre_original" => "dragon.zip"
-      ),
-      array(
-        "titulo" => "Juego 3",
-        "descripcion" => "Des 3",
-        "autor" => "aut 3",
-        "categoria" => "cat 3",
-        "archivo" => "rut arch 3",
-        "nombre_original" => "dragon.zip"
-      ),
-      array(
-        "titulo" => "Juego 3",
-        "descripcion" => "Des 3",
-        "autor" => "aut 3",
-        "categoria" => "cat 3",
-        "archivo" => "rut arch 3",
-        "nombre_original" => "dragon.zip"
-      ),
-    ];
-    $this->loadView("juegos", ['juegos' => $arrayJuegos, 'pageTitle' => 'Juegos']);
-  }
-
-  public function loadView(string $view, ?array $juegos = null): void
-  {
-    $this->pages->render($view, $juegos);
-  }
-
-  public function logout(): void
-  {
-    echo "logout";
+    $this->pages->render('juegos', [
+      'juegos' => $this->juegos->todos(),
+      'pageTitle' => 'Juegos'
+    ]);
   }
 }
