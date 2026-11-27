@@ -16,12 +16,12 @@ class ErrorController
     ]);
   }
 
-  public static function show_error500(): void {
+  public static function show_error500(string $mensaje = 'Ha ocurrido un error interno'): void {
     http_response_code(500);
 
     (new Pages())->render('errors/error505', [
       'pageTitle' => 'Error 500',
-      'mensaje' => 'Ha ocurrido un error interno'
+      'mensaje' => $mensaje
     ]);
   }
 }

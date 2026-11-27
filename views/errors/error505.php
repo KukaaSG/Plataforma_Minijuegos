@@ -10,6 +10,9 @@
 <body>
   <h1>ERROR 500</h1>
   <h2>Error interno del servidor</h2>
+  <?php if (!empty($mensaje)): ?>
+    <p><?= htmlspecialchars((string) $mensaje, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?></p>
+  <?php endif; ?>
 </body>
 
 </html>

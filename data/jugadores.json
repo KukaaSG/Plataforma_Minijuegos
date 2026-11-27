@@ -13,5 +13,10 @@
         "username": "Nck",
         "email": "correo3@email.com",
         "password": "$2y$12$fIGP9bCFFdFkWHt\/lw07NeWvT9lwt0a71ge2V8g9E5e9iRI\/gZ2kS"
+    },
+    {
+        "username": "nuci",
+        "email": "correo5@email.com",
+        "password": "$2y$12$8XNdSJNNS4mL4BR9c00x1Oxzk6HgFa0yP45fugclxmgk5UcnpC3iS"
     }
 ]

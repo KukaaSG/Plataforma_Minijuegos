@@ -32,7 +32,9 @@ class FrontController
       $objeto->$metodo();
     } catch (\Throwable $e) {
       error_log((string) $e);
-      ErrorController::show_error500();
+      ErrorController::show_error500(
+        get_class($e) . ': ' . $e->getMessage() . ' in ' . $e->getFile() . ':' . $e->getLine()
+      );
     }
   }
 }
