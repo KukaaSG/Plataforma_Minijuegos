@@ -1,0 +1,18 @@
+[
+    {
+        "titulo": "Hola",
+        "descripcion": "rcue",
+        "autor": "invitado",
+        "categoria": "Aventura",
+        "archivo": "uploads\/juegos\/20261127_090332_nixConfig-main.zip",
+        "nombre_original": "nixConfig-main.zip"
+    },
+    {
+        "titulo": "juego 2",
+        "descripcion": "deskc 2",
+        "autor": "invitado",
+        "categoria": "Puzzle",
+        "archivo": "uploads\/juegos\/20261127_090359_nixConfig-main.zip",
+        "nombre_original": "nixConfig-main.zip"
+    }
+]

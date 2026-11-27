@@ -39,8 +39,8 @@ class Juego
   public function guardar(array $datos, string $rutaTemporal): void
   {
     // Crea la carpeta de subidas si no existe
-    if (!is_dir($this->rutaUploads)) {
-      mkdir($this->rutaUploads, 0755, true);
+    if (!is_dir($this->rutaUploads) && !mkdir($this->rutaUploads, 0775, true) && !is_dir($this->rutaUploads)) {
+      throw new \RuntimeException("No se pudo crear el directorio de subidas: {$this->rutaUploads}");
     }
 
     // Le da un nombre único propio: fecha + nombre saneado
@@ -64,14 +64,17 @@ class Juego
     ];
 
     $carpetaJson = dirname($this->rutaJson);
-    if (!is_dir($carpetaJson)) {
-      mkdir($carpetaJson, 0755, true);
+    if (!is_dir($carpetaJson) && !mkdir($carpetaJson, 0775, true) && !is_dir($carpetaJson)) {
+      throw new \RuntimeException("No se pudo crear el directorio: {$carpetaJson}");
     }
 
-    file_put_contents(
+    $resultado = file_put_contents(
       $this->rutaJson,
       json_encode($juegos, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE),
       LOCK_EX
     );
+    if ($resultado === false) {
+      throw new \RuntimeException("No se pudo escribir en el archivo: {$this->rutaJson}");
+    }
   }
 }
