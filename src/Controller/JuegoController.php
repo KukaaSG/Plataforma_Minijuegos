@@ -9,50 +9,51 @@ use Request\formSubirJuegoRequest;
 
 class JuegoController
 {
-    private $pages;
-    private $juegos;
+  private $pages;
+  private $juegos;
 
-    public function __construct() {
-      $this->pages = new Pages();
-      $this->juegos = new JuegoModel(RUTA_JUEGOS, RUTA_UPLOADS);
-    }
+  public function __construct()
+  {
+    $this->pages = new Pages();
+    $this->juegos = new JuegoModel(RUTA_JUEGOS, RUTA_UPLOADS);
+  }
 
-    public function subir() {
-      $errores = [];
-      $datos = [];
+  public function subir()
+  {
+    $errores = [];
+    $datos = [];
 
-      if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $request = new formSubirJuegoRequest($_POST, $_FILES);
-        if ($request->esValido()) {
-          $this->juegos->guardar([
-            'titulo' => $request->titulo(),
-            'descripcion' => $request->descripcion(),
-            'autor' => 'invitado',
-            'categoria' => $request->categoria(),
-            'nombre_original' => $request->nombreOriginal()
-          ], $request->rutaTemporal());
-          header('Location: index.php?action=juegos');
-          exit;
-        }
-
-        $errores = $request->errores();
-        $datos = $request->datos();
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $request = new formSubirJuegoRequest($_POST, $_FILES);
+      if ($request->esValido()) {
+        $this->juegos->guardar([
+          'titulo' => $request->titulo(),
+          'descripcion' => $request->descripcion(),
+          'autor' => 'invitado',
+          'categoria' => $request->categoria(),
+          'nombre_original' => $request->nombreOriginal()
+        ], $request->rutaTemporal());
+        header('Location: index.php?action=juegos');
+        exit;
       }
 
-      $this->pages->render('subir_juego', [
-        'pageTitle' => 'Subir',
-        'errores' => $errores,
-        'datos' => $datos,
-        'categorias' => CATEGORIAS
-      ]);
+      $errores = $request->errores();
+      $datos = $request->datos();
     }
 
-    public function listar() {
-      $this->pages->render('juegos', [
-        'juegos' => $this->juegos->todos(),
-        'pageTitle' => 'Juegos'
-      ]);
-    }
+    $this->pages->render('subir_juego', [
+      'pageTitle' => 'Subir',
+      'errores' => $errores,
+      'datos' => $datos,
+      'categorias' => CATEGORIAS
+    ]);
+  }
+
+  public function listar()
+  {
+    $this->pages->render('juegos', [
+      'juegos' => $this->juegos->todos(),
+      'pageTitle' => 'Juegos'
+    ]);
+  }
 }
-
-

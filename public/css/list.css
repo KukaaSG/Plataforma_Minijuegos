@@ -63,8 +63,8 @@ a:hover {
 
 .noGamesError {
   position: absolute;
-  top: 37vh;
-  left: 31.5vw;
+  top: 32vh;
+  left: 23vw;
 }
 .noGamesError > h2 {
   font-size: 3em;

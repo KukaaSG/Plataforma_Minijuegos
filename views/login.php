@@ -20,7 +20,6 @@
           <div>
             <label for="correo">Correo</label>
             <input type="text" id="correo" name="correo" placeholder="correo@email.com" value="<?= htmlspecialchars($datos['email'] ?? '') ?>">
-            <?php if (isset($errores['email'])): ?><span class="error"><?= htmlspecialchars($errores['email']) ?></span><?php endif; ?>
           </div>
 
           <div>
